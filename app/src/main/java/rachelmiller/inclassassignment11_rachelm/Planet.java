@@ -1,10 +1,12 @@
 package rachelmiller.inclassassignment11_rachelm;
 
+import java.io.Serializable;
+
 /**
  * Created by rachelmiller on 4/17/17.
  */
 
-public class Planet {
+public class Planet implements Serializable {
 
     public String id;
     public String name;

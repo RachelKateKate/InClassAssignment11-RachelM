@@ -1,16 +1,15 @@
 package rachelmiller.inclassassignment11_rachelm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Random;
-import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,9 +37,23 @@ public class MainActivity extends AppCompatActivity {
         planetAdapter.cleanup();
     }
 
-    public void addPlanet(View view) {
-        String id = UUID.randomUUID().toString();
-        Random random = new Random();
-        planetReference.child(id).setValue(new Planet(id, "Some planet", random.nextInt(100), random.nextBoolean()));
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);//calling from my main menu object takes menu xml and inflates it
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_add:
+                Intent msIntent = new Intent(this, SecondActivity.class);
+                startActivity(msIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }

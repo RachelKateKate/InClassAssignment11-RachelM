@@ -1,6 +1,7 @@
 package rachelmiller.inclassassignment11_rachelm;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -36,6 +37,9 @@ public class PlanetViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, planetNameText.getText(), Toast.LENGTH_SHORT).show();
+                Intent msIntent = new Intent(context, SecondActivity.class);
+                msIntent.putExtra(Keys.PLANET, planet);
+                context.startActivity(msIntent);
             }
         });
 
