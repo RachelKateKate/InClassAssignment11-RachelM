@@ -23,6 +23,7 @@ public class SecondActivity extends AppCompatActivity {
     private EditText planet;
     private EditText distance;
     private CheckBox hasWater;
+    private Planet planetObject;
 
 
     @Override
@@ -30,9 +31,19 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
+        if (getIntent() != null)
+            planetObject = (Planet) getIntent().getSerializableExtra(Keys.PLANET);
+
         planet = (EditText) findViewById(R.id.planetName);
         distance = (EditText) findViewById(R.id.distance);
         hasWater = (CheckBox) findViewById(R.id.hasWater);
+
+        if (planetObject != null) {
+            planet.setText(planetObject.name);
+            distance.setText(String.valueOf(planetObject.distance));
+            hasWater.setChecked(planetObject.hasWater);
+
+        }
     }
 
     @Override
@@ -63,6 +74,20 @@ public class SecondActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    public void addPlanet() {
+        String id = UUID.randomUUID().toString();
+        Planet p = new Planet(id, planet.getText().toString(), Integer.parseInt(distance.getText().toString()), hasWater.isChecked());
+        planetReference.child(id).setValue(p);
+    }
+
+    public void savePlanet() {
+        planetObject.name = planet.getText().toString();
+        planetObject.distance = Integer.parseInt(distance.getText().toString());
+        planetObject.hasWater = hasWater.isChecked();
+
+        planetReference.child(planetObject.id).setValue(planet);
     }
 }
 
